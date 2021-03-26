@@ -1,0 +1,47 @@
+import math
+import random
+import sys
+import time
+from cuckoo_hashing_perfect_rehash import CuckooHashingPerfectRehash
+from chpr_alt import CHPRalt
+
+random.seed()
+N = 10**2
+M = 10**3
+
+def sim(outputfile):
+	n = 100
+	output = "x = 100:100:10000\ny = ["
+	U = list(range(1, 10**7))
+	for _ in range(100):
+		S = random.sample(U, n)
+		chpr = CuckooHashingPerfectRehash(n, 0.5, int(math.log(n, 2)), 10**7)
+		for key in S:
+			chpr.insert(key)
+		numerator = 0
+		denominator = 0
+		for __ in range(M):
+			chpr.numRehashes = 0
+			for ___ in range(N):
+				chpr.removeRandom()
+				newInsertion = False
+				while not newInsertion:
+					x = random.randint(1, 10**7)
+					newInsertion = chpr.insert(x)
+				if chpr.numRehashes >= 2:
+					numerator += 1
+					break
+			if chpr.numRehashes >= 1:
+				denominator += 1
+		output += str(float(numerator)/float(denominator)) + " "
+		print(n)
+		n += 100
+		f = open(outputfile, "w")
+		f.write(output)
+		f.close()
+	output += "])\nplot(x, y)"
+	f = open(outputfile, "w")
+	f.write(output)
+	f.close()
+
+sim("/home/judismar/Área de Trabalho/out")

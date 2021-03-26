@@ -1,0 +1,34 @@
+import math
+import random
+import sys
+import time
+from cuckoo_hashing_perfect_rehash import CuckooHashingPerfectRehash
+from chpr_alt import CHPRalt
+
+random.seed()
+N = 10**6
+cont1 = 0
+cont2 = 0
+
+def sim():
+	global cont1 cont2
+	n = 100
+	U = list(range(1, 10**7))
+	for _ in range(20):
+		S = random.sample(U, n)
+		chpr = CuckooHashingPerfectRehash(n, 0.5, int(math.log(n, 2)), 10**7)
+		chprAlt = CHPRalt(n, 0.5, int(math.log(n, 2)), 10**7)
+		for key in S:
+			chpr.insert(key)
+			chprAlt.insert(key)
+
+		cont1 = cont2 = 0
+		for _ in range(N):
+			chpr.removeRandom()
+			x = random.randint(1, 10**7)
+			newInsertion = False
+			while not newInsertion:
+				newInsertion = chpr.insert(x)
+
+		n += 100
+sim()
