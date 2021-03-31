@@ -4,6 +4,8 @@ import sys
 import time
 from cuckoo_hashing_perfect_rehash import CuckooHashingPerfectRehash
 
+#The average time of a lookup and an insertion are in function of x = log log n, where n is the number of elements in the structure.
+
 random.seed()
 N_INSERT = 100
 N_LOOKUP = 10000

@@ -4,8 +4,10 @@ import sys
 import time
 from cuckoo_hashing_perfect_rehash import CuckooHashingPerfectRehash
 
+#Emulating the worst case of the lookup and insertion operations.
+
 random.seed()
-N_INSERT = 5
+N_INSERT = 10
 N_LOOKUP = 1000
 
 def exp(strout):

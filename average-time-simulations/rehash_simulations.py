@@ -4,6 +4,8 @@ import sys
 import time
 from cuckoo_hashing_perfect_rehash import CuckooHashingPerfectRehash
 
+#Average number of insertions a perfect rehash is required after one was performed.
+
 random.seed()
 N = 200
 
